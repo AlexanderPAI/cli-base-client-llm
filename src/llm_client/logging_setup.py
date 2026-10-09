@@ -1,8 +1,6 @@
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
-logging.getLogger("cli").setLevel(logging.WARNING)
-logging.getLogger("client").setLevel(logging.WARNING)
+logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger("llm_client")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
