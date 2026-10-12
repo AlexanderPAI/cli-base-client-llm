@@ -19,7 +19,9 @@ def parse_args(args: List[str]) -> Tuple[bool, str]:
             request = arg
 
     if request is None:
-        raise Exception('No request argument. Please keep format "python -m src.llm_client.cli "User request""')
+        raise Exception('No request argument. Please keep format "python -m src.llm_client.cli "User request"')
+    if request == '':
+        raise Exception("Empty request")
     return verbose, request
 
 
@@ -52,7 +54,6 @@ def main(sys_args: List[str]) -> None:
     else:
         answer = result['response'].choices[0].message.content
 
-    # print(result['response'].usage)
     print(answer)
 
 

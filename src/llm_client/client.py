@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict
 
 from openrouter import OpenRouter
@@ -21,7 +21,7 @@ class Client:
             self,
             system_prompt: Dict[str, str],
             user_prompt: Dict[str, str],
-    ) -> Dict[str, ChatResult | timedelta]:
+    ) -> Dict[str, ChatResult | int]:
         """Generate the chat."""
         start = datetime.now()
         with self.model:
