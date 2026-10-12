@@ -1,8 +1,18 @@
-from openrouter import OpenRouter
+from pydantic import BaseModel, Field
 
-from src.llm_client.config import config
 
-model = OpenRouter(
-    api_key=config.llm_api_key,
-    timeout_ms=config.llm_timeout_seconds * 1000,
-)
+class Answer(BaseModel):
+    """Model for an answer."""
+    answer: str = Field(..., description="Answer text")
+    summary: str = Field(..., description="Answer summary")
+    confidence: float = Field(..., description="A number from 0 to 1")
+
+
+class ModelResponse(BaseModel):
+    """Model for ModelResponse"""
+    response: str = Field(..., description="Substantive answer")
+    model: str = Field(..., description="Used model")
+    input_tokens: int = Field(..., description="Number of input tokens")
+    output_tokens: int = Field(..., description="Number of output tokens")
+    duration_ms: int = Field(..., description="Duration in milliseconds")
+    request_id: int = Field(..., description="Request ID")
