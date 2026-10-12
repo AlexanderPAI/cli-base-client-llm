@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
-from typing import Optional, Dict
+from typing import Dict
 
 from openrouter import OpenRouter
 from openrouter.components import ChatResult
 
 from src.llm_client.config import config
-from src.llm_client.models import Answer, ModelResponse
+from src.llm_client.models import Answer
 
 
 class Client:
@@ -42,5 +42,5 @@ class Client:
 
         return {
             "response": response,
-            "duration": duration,
+            "duration": round(duration.total_seconds() * 1000),
         }

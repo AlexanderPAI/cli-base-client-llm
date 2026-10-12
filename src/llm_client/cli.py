@@ -4,9 +4,11 @@ from typing import List, Tuple
 from src.llm_client.config import config
 from src.llm_client.logging_setup import logger
 from src.llm_client.client import Client
+from src.llm_client.models import ModelResponse, Answer
 
 
 def parse_args(args: List[str]) -> Tuple[bool, str]:
+    """Parse command line arguments"""
     verbose = False
     request = None
 
@@ -37,8 +39,20 @@ def main(sys_args: List[str]) -> None:
     client = Client()
 
     result = client.generate(system_prompt, user_prompt)
-    answer = result['response'].choices[0].message.content
 
+    if verbose:
+        answer = ModelResponse(
+            response=result['response'].choices[0].message.content,
+            model=result['response'].model,
+            input_tokens=result['response'].usage.prompt_tokens,
+            output_tokens=result['response'].usage.completion_tokens,
+            duration_ms=result['duration'],
+            request_id=result['response'].id,
+        ).model_dump()
+    else:
+        answer = result['response'].choices[0].message.content
+
+    # print(result['response'].usage)
     print(answer)
 
 
